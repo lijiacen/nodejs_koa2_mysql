@@ -1,0 +1,23 @@
+{
+  "name": "nodejs_koa2_mysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lijiacen/nodejs_koa2_mysql.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lijiacen/nodejs_koa2_mysql/issues"
+  },
+  "homepage": "https://github.com/lijiacen/nodejs_koa2_mysql#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "koa": "^2.13.0"
+  }
+}
