@@ -1,26 +1,18 @@
 const Koa = require("koa");
-
+const Router = require("koa-router");
+//使用requireDirectory实现路由自动加载
+const requireDirectory = require("require-directory");
 const app = new Koa();
+const router = new Router();
 
-//async修饰的函数，任意返回值，都会包装成promise
-//async await 保证洋葱圈模型的执行
-app.use(async (ctx, next) => {
-  console.log("洋葱圈1");
-  //await 求值关键字;
-  //1):可以对任意表达式求值promise其中之一;计算next返回的promise 转换为字符串;
-  //2):会阻塞线程,把异步调用的函数，变成同步
-  const a = await next(); // next 返回promise
-  console.log("洋葱圈4");
-
-  if (ctx.path === "/") {
-    ctx.body = ctx.result;
+//导入目录下所有文件，用于路由的加载
+const modules = requireDirectory(module, "./api", {
+  visit: function (obj) {
+    //回调，判断导入的对象为路由对象，则在koa中注册
+    if (obj instanceof Router) {
+      app.use(obj.routes());
+    }
   }
-});
-
-app.use(async (ctx, next) => {
-  console.log("洋葱圈2");
-  console.log("洋葱圈3");
-  ctx.result = "res";
 });
 
 app.listen(3000);
