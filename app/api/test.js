@@ -1,5 +1,5 @@
 const Router = require("koa-router");
-const HttpException = require("../../core/http-exception");
+const { HttpException } = require("../../core/http-exception");
 
 const router = new Router();
 
