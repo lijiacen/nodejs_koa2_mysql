@@ -1,12 +1,16 @@
 //使用requireDirectory实现路由自动加载
 const requireDirectory = require("require-directory");
 const Router = require("koa-router");
+const parser = require("koa-bodyparser");
+const catchException = require("../middlewares/exception");
 
 class InitManager {
   static initCore(app) {
     //入口方法
     InitManager.app = app;
+    InitManager.initMiddlewares(app);
     InitManager.initLoadRouters(app);
+    InitManager.initConfig();
   }
 
   static initLoadRouters() {
@@ -20,6 +24,16 @@ class InitManager {
         }
       }
     });
+  }
+
+  static initMiddlewares() {
+    InitManager.app.use(catchException);
+    InitManager.app.use(parser());
+  }
+
+  static initConfig() {
+    const config = require("../config/config");
+    global.config = config;
   }
 }
 module.exports = InitManager;

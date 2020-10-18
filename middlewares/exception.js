@@ -6,6 +6,12 @@ const catchError = async (ctx, next) => {
   try {
     await next();
   } catch (error) {
+
+    //开发环境直接抛出异常,控制台中打印
+    if (global.config.environment === 'dev') {
+      throw error;
+    }
+
     let url = `${ctx.method} ${ctx.path}`;
     //instanceof HttpException 作为判断已知异常的标识
     if (error instanceof HttpException) {
